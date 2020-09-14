@@ -2,7 +2,9 @@
 	<v-row justify="center" align="center" id="login">
 		<div>
 			<h2>Iniciar Sesión </h2>
+			
 			<v-text-field dark outlined label="Email" v-model="email"/>
+
 			<v-text-field dark outlined label="Contraseña" type="password" v-model="pwd"/>
 			
 			<v-row justify="center">
@@ -13,6 +15,7 @@
 					Login
 				</v-btn>
 			</v-row>
+
 		</div>
 	</v-row>
 </template>
