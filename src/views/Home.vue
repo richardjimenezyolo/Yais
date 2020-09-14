@@ -18,23 +18,40 @@
     		</v-btn>
     	</v-toolbar>
 
+    	<v-btn color="pink"
+    	href="#/add"
+    	fab 
+    	fixed 
+    	bottom 
+    	right 
+    	dark>
+    		<v-icon>
+    			{{ plusIcon }}
+    		</v-icon>
+    	</v-btn>
+
     	<v-calendar dark color="pink" :events="events" :value="today" type="week"/>
 
     </div>
 </template>
 
 <script>
-	import { mdiArrowLeft, mdiArrowLeftCircle, mdiArrowRightCircle   } from '@mdi/js';
-	import { Auth } from '../firebase.js';
+	import { mdiPlus, mdiArrowLeft, mdiArrowLeftCircle, mdiArrowRightCircle   } from '@mdi/js';
+	import { db, auth } from '../firebase.js';
 	import moment from 'moment';
 
 	window.moment = moment
 
 	export default {
 		created() {
-			Auth.onAuthStateChanged(user => {
+			auth.onAuthStateChanged(user => {
 				if (user) {
-					// console.log('loged')
+					db.collection('citas').where("uid", "==", user.uid).onSnapshot(docs => {
+						docs.forEach(doc => {
+							console.log(doc.data())
+							this.events.push(doc.data())
+						})
+					})
 				} else {
 					location.href = "#/login"
 				}
@@ -54,14 +71,9 @@
 			return {
 				today: '',
 				backIcon: mdiArrowLeftCircle,
+				plusIcon: mdiPlus,
 				fwdIcon: mdiArrowRightCircle,
-				events: [
-					{
-						name: 'Richard Jimenez',
-						start: "2020-09-17 04:00",
-						end: "2020-09-17 05:00"
-					}
-				]
+				events: []
 			}
 		}
 	}

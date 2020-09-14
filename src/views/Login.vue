@@ -21,13 +21,13 @@
 </template>
 
 <script>
-	import { Auth } from '../firebase.js';
+	import { auth } from '../firebase.js';
 	import { mdiLogin } from '@mdi/js';
 
 	export default {
 		methods: {
 			signin() {
-				Auth.signInWithEmailAndPassword(this.email, this.pwd).then(out => {
+				auth.signInWithEmailAndPassword(this.email, this.pwd).then(out => {
 					location.href = "#/"
 				}).catch(error => {
 					alert(error)

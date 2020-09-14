@@ -22,5 +22,7 @@ const firebaseConfig = {
 window.firebase = firebase;
 
 firebase.initializeApp(firebaseConfig);
+firebase.firestore().enablePersistence();
 
-export let Auth = firebase.auth();
+export let auth = firebase.auth();
+export let db = firebase.firestore();

@@ -11,5 +11,7 @@
 	}
 	body,html {
 		background: black;
+		color: white;
+		height: 100vw;
 	}
 </style>
