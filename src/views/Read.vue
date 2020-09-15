@@ -30,13 +30,13 @@
 
 			<v-card dark class="my-9">
 				<v-card-text>
-					Entrada: <p>{{ cita.start }}</p>
+					Entrada: <p>{{ start }}</p>
 				</v-card-text>
 			</v-card>
 
 			<v-card dark class="my-9">
 				<v-card-text>
-					Salida: <p>{{ cita.end }}</p>
+					Salida: <p>{{ end }}</p>
 				</v-card-text>
 			</v-card>
 		
@@ -48,6 +48,7 @@
 <script>
 	import { mdiArrowLeft } from '@mdi/js';
 	import { db } from '../firebase.js';
+	import moment from 'moment';
 
 	export default {
 		created() {
@@ -56,13 +57,17 @@
 			this.id = this.$route.params.id
 
 			db.collection('citas').doc(this.id).onSnapshot(doc => {
-				this.cita = doc.data()
+				this.cita 	=	doc.data()
+				this.start 	=	moment(this.cita.start).format("DD-MM-YYYY")
+				this.end   	=	moment(this.cita.end).format("DD-MM-YYYY")
 			})
 		},
 		data: _ => ({
 			id: '',
 			cita: '',
-			backIcon: mdiArrowLeft
+			backIcon: mdiArrowLeft,
+			start: '',
+			end: ''
 		})
 	}
 </script>

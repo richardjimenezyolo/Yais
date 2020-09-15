@@ -1,7 +1,9 @@
 <template>
     <div>
     	<v-toolbar dark>
-    		<v-toolbar-title>Yais</v-toolbar-title>
+    		<v-toolbar-title>
+    			Yais-{{ month }}
+    		</v-toolbar-title>
 
     		<v-spacer></v-spacer>
 
@@ -40,7 +42,7 @@
 	import { db, auth } from '../firebase.js';
 	import moment from 'moment';
 
-	window.moment = moment
+	moment.locale('es')
 
 	export default {
 		created() {
@@ -62,13 +64,16 @@
 			})
 
 			this.today = moment().format("YYYY-MM-DD")
+			this.month = moment().format("MMMM")
 		},
 		methods: {
 			move_fwd() {
-				this.today = moment(this.today).add(7, 'days').format("YYYY-MM-DD")
+				this.today = moment(this.today).add(7, 'days').format("YYYY-MM-DD");
+				this.month = moment(this.today).format("MMMM");
 			},
 			move_bck() {
-				this.today = moment(this.today).subtract(7, 'days').format("YYYY-MM-DD")
+				this.today = moment(this.today).subtract(7, 'days').format("YYYY-MM-DD");
+				this.month = moment(this.today).format("MMMM");
 			},
 			goToEvent({ event }) {
 				console.log(event)
@@ -81,7 +86,8 @@
 				backIcon: mdiArrowLeftCircle,
 				plusIcon: mdiPlus,
 				fwdIcon: mdiArrowRightCircle,
-				events: []
+				events: [],
+				month: ''
 			}
 		}
 	}
