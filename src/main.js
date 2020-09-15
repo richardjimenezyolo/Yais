@@ -9,6 +9,7 @@ import App from './App.vue';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Add from './views/Add.vue';
+import Read from './views/Read.vue';
 
 Vue.use(VueRouter);
 Vue.use(Vuetify);
@@ -18,6 +19,7 @@ const router = new VueRouter({
 		{path: '/', component: Home},
 		{path: '/login', component: Login},
 		{path: '/add', component: Add},
+		{path: '/read/:id', component: Read},
 	]
 })
 

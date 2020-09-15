@@ -30,7 +30,7 @@
     		</v-icon>
     	</v-btn>
 
-    	<v-calendar dark color="pink" :events="events" :value="today" type="week"/>
+    	<v-calendar dark color="pink" :events="events" :value="today" @click:event="goToEvent" type="week"/>
 
     </div>
 </template>
@@ -46,12 +46,16 @@
 		created() {
 			auth.onAuthStateChanged(user => {
 				if (user) {
+
 					db.collection('citas').where("uid", "==", user.uid).onSnapshot(docs => {
 						docs.forEach(doc => {
-							console.log(doc.data())
-							this.events.push(doc.data())
+							// console.log(doc.data())
+							let data = doc.data()
+							data.id = doc.id
+							this.events.push(data)
 						})
 					})
+
 				} else {
 					location.href = "#/login"
 				}
@@ -65,6 +69,10 @@
 			},
 			move_bck() {
 				this.today = moment(this.today).subtract(7, 'days').format("YYYY-MM-DD")
+			},
+			goToEvent({ event }) {
+				console.log(event)
+				location.href = `#/read/${event.id}`
 			}
 		},
 		data() {
