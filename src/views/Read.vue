@@ -12,6 +12,14 @@
 			<v-toolbar-title>
 				Cita de {{ cita.name }}
 			</v-toolbar-title>
+
+			<v-spacer></v-spacer>
+
+			<v-btn icon @click="del">
+				<v-icon>
+					{{ trashIcon }}
+				</v-icon>
+			</v-btn>
 		</v-toolbar>
 
 		<div class="my-5">
@@ -46,7 +54,7 @@
 </template>
 
 <script>
-	import { mdiArrowLeft } from '@mdi/js';
+	import { mdiArrowLeft, mdiDelete } from '@mdi/js';
 	import { db } from '../firebase.js';
 	import moment from 'moment';
 
@@ -62,10 +70,19 @@
 				this.end   	=	moment(this.cita.end).format("DD-MM-YYYY")
 			})
 		},
+		methods: {
+			del() {
+				if (confirm("Estas Seguro de que deseas eliminar esta cita?")) {
+					db.collection('citas').doc(this.id).delete();
+					location.href = '#/';
+				}
+			}
+		},
 		data: _ => ({
 			id: '',
 			cita: '',
 			backIcon: mdiArrowLeft,
+			trashIcon: mdiDelete,
 			start: '',
 			end: ''
 		})

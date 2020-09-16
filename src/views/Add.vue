@@ -15,15 +15,15 @@
 		<h2>Añade un nueva cita:</h2>
 		<br>
 
-		<div class="container">
-			<v-text-field dark label="Nombre:" v-model="nombre"/>
-		</div>
+		<v-card dark>
+			<v-text-field label="Nombre:" v-model="nombre"/>
+		</v-card>
 
 		<br>
 
-		<div class="container">
-			<v-text-field dark label="Procedimiento:" v-model="proc" />
-		</div>
+		<v-card dark>
+			<v-text-field label="Procedimiento:" v-model="proc" />
+		</v-card>
 
 		<br>
 
@@ -34,7 +34,7 @@
 
 		<br>
 
-		<div class="container">
+		<div class="container" dark>
 			Hora de Salida:
 			<input type="datetime-local" v-model="salida">
 		</div>
