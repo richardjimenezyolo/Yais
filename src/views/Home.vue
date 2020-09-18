@@ -32,7 +32,17 @@
     		</v-icon>
     	</v-btn>
 
-    	<v-calendar dark color="pink" :events="events" :value="today" @click:event="goToEvent" type="week"/>
+    	<v-calendar 
+    	dark 
+    	color="pink" 
+    	:events="events" 
+    	:value="today" 
+    	@click:event="goToEvent" 
+    	type="week"
+    	v-touch="{
+    		right: _ => move_bck(),
+    		left: _ => move_fwd()
+    	}"/>
 
     </div>
 </template>
@@ -59,12 +69,12 @@
 					})
 
 				} else {
-					location.href = "#/login"
+					location.href = "#/login";
 				}
 			})
 
-			this.today = moment().format("YYYY-MM-DD")
-			this.month = moment().format("MMMM")
+			this.today = moment().format("YYYY-MM-DD");
+			this.month = moment().format("MMMM");
 		},
 		methods: {
 			move_fwd() {
@@ -76,8 +86,8 @@
 				this.month = moment(this.today).format("MMMM");
 			},
 			goToEvent({ event }) {
-				console.log(event)
-				location.href = `#/read/${event.id}`
+				console.log(event);
+				location.href = `#/read/${event.id}`;
 			}
 		},
 		data() {
