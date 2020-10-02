@@ -3,7 +3,7 @@
 
 		<v-toolbar dark>
 
-			<v-btn icon href="#/">
+			<v-btn icon @click="save">
 				<v-icon>
 					{{ backIcon }}
 				</v-icon>
@@ -25,26 +25,32 @@
 		<div class="my-5">
 
 			<v-card dark class="my-9">
-				<v-card-text>
+				<!-- <v-card-text>
 					Nombre: <p>{{ cita.name }}</p>
-				</v-card-text>
+				</v-card-text> -->
+
+				<v-text-field label="Nombre:" v-model="cita.name"></v-text-field>
+
 			</v-card>
 
 			<v-card dark class="my-9">
-				<v-card-text>
+				<!-- <v-card-text>
 					Procedimiento: <p>{{ cita.proc }}</p>
+				</v-card-text> -->
+
+				<v-text-field label="Procedimiento" v-model="cita.proc"></v-text-field>
+
+			</v-card>
+
+			<v-card dark class="my-9">
+				<v-card-text>
+					Entrada: <p><input class="date" v-model="cita.start" type="datetime-local"></p>
 				</v-card-text>
 			</v-card>
 
 			<v-card dark class="my-9">
 				<v-card-text>
-					Entrada: <p>{{ start }}</p>
-				</v-card-text>
-			</v-card>
-
-			<v-card dark class="my-9">
-				<v-card-text>
-					Salida: <p>{{ end }}</p>
+					Salida: <p><input type="datetime-local" v-model="cita.end" class="date"></p>
 				</v-card-text>
 			</v-card>
 		
@@ -53,7 +59,7 @@
 	</div>
 </template>
 
-<script>
+<script lang="ts">
 	import { mdiArrowLeft, mdiDelete } from '@mdi/js';
 	import { db } from '../firebase.js';
 	import moment from 'moment';
@@ -76,6 +82,12 @@
 					db.collection('citas').doc(this.id).delete();
 					location.href = '#/';
 				}
+			},
+			save() {
+				console.log('saved')
+
+				db.collection('citas').doc(this.id).set(this.cita)
+
 			}
 		},
 		data: _ => ({
@@ -94,5 +106,8 @@
 		display: inline;
 		float: right;
 		margin-right: 10px;
+	}
+	.date {
+		color: white;
 	}
 </style>
