@@ -86,7 +86,9 @@
 			save() {
 				console.log('saved')
 
-				db.collection('citas').doc(this.id).set(this.cita)
+				db.collection('citas').doc(this.id).set(this.cita).then(out => {
+					location.href = '#/';
+				})
 
 			}
 		},
